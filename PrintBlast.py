@@ -28,7 +28,7 @@ blast = ""
 n = 0
 a = 100000
 
-only = False
+only = 0
 
 
 # Check for the arguments, open the inputs and print useful help messages
@@ -59,7 +59,7 @@ for opt, arg in opts:
         if opt in ("-o"):
             output = open(arg,"w")
         if opt == "-1":
-            only = True
+            only = 1
     elif len(arg) < 2:
         print '\n', '###    Arguments are missing   ###', '\n', '\n' 'Use -h option for help\n'
         sys.exit(1)
@@ -71,7 +71,7 @@ for opt, arg in opts:
 
 output.write("Name\tQuery_ID\tQuery_length\tSubjct_ID\tSubjct_length\tAlignment_length\te-value\tgaps\tsimilarity\tPosition_Sbjct\n")
 			   
-# Parsing the information of interest and write it on the output
+# Parsing the information of interest and write it in the output
 
 for rec in blast_records:
 	for alignment in rec.alignments:
@@ -86,12 +86,11 @@ for rec in blast_records:
 			    str(rec.database_length) + "\t" + str(hsp.align_length) + '\t' + str(hsp.expect) + '\t' + 
 			    str(hsp.gaps) + '\t' + str(float(hsp.identities)/int(hsp.align_length)) + "\t" + str(hsp.sbjct_start) + "-" + str(hsp.sbjct_end) + "\n")   
 			    n = n + 1 
-			    count = 0
+			    if only == 1:
+			        break
 			    if n == a:
 			        print n, "Hsp already checked. Please wait..."
-			        a = a + 100000
-                if only is True:
-                    break      
+			        a = a + 100000      
                     
 
 output.close() 
