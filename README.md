@@ -14,4 +14,4 @@ PrintBlast.py -b *blastresult.xml* -o *output.txt*
 
 **Options:**
 -h for usage help
--1 for printing only one hit (the first hit) per query
+-S for printing only one hit (the first hit) per query
