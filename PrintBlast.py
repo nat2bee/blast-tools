@@ -34,7 +34,7 @@ only = 0
 # Check for the arguments, open the inputs and print useful help messages
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:],"hb:o:",["blast=","output="])
+    opts, args = getopt.getopt(sys.argv[1:],"h1b:o:",["blast=","output="])
 except getopt.GetoptError:
     print '\n', '####     Invalid use     ####', '\n'
     print 'Usage: PrintBlast.py -b <blastresult.xml> -o <output.txt>'
