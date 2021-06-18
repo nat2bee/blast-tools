@@ -11,7 +11,7 @@
 # output.txt = the name of the file to save the output table
 #
 # Options: -h for usage help
-#          -1 for printing only one hit (the first hit) per query
+#          -S for printing only one hit (the first hit) per query
 #
 # Outputs: A table named as your -o option containing essential information about your blast results
 #
@@ -34,7 +34,7 @@ only = 0
 # Check for the arguments, open the inputs and print useful help messages
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:],"h1b:o:",["blast=","output="])
+    opts, args = getopt.getopt(sys.argv[1:],"hSb:o:",["blast=","output="])
 except getopt.GetoptError:
     print '\n', '####     Invalid use     ####', '\n'
     print 'Usage: PrintBlast.py -b <blastresult.xml> -o <output.txt>'
@@ -49,18 +49,17 @@ for opt, arg in opts:
         print 'Where: blastresult.xml = blast result in xml format'
         print 'output.txt = the name of the file to save the output table'
         print 'Options: -h for help'
-        print '-1 for printing only one hit (the first hit) per query'
-        
+        print '-S for printing only one hit (the first hit) per query'
         sys.exit()
-    elif len(arg) >= 2:
+    elif opt in ("-b", "-o", "-S"):
         if opt in ("-b"):
             blast = open(arg)
             blast_records = NCBIXML.parse(blast)
         if opt in ("-o"):
             output = open(arg,"w")
-        if opt == "-1":
+        if opt in "-S":
             only = 1
-    elif len(arg) < 2:
+    elif opt not in ("-b", "-o"):
         print '\n', '###    Arguments are missing   ###', '\n', '\n' 'Use -h option for help\n'
         sys.exit(1)
     else:
